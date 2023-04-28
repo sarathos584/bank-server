@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken"); // importing jwt
-
+const db = require("./db"); //importing db.js
 accounts = {
   1000: {
     account_no: 1000,
@@ -36,28 +36,32 @@ accounts = {
 };
 
 const register = (acno, uname, phone, pswd) => {
-  if (acno in accounts) {
-    return {
-      status: false,
-      message: "Account already exists!! Try Log in",
-      statusCode: 404,
-    };
-  } else {
-    accounts[acno] = {
-      account_no: acno,
-      name: uname,
-      phone: phone,
-      balance: 0,
-      password: pswd,
-      transaction: [],
-    };
-    console.log(accounts);
-    return {
-      status: true,
-      message: "Registration completed!",
-      statusCode: 201,
-    };
-  }
+  return db.Account.findOne({ account_no: acno }).then((acc) => {
+    console.log(acc);
+  });
+
+  // if (acno in accounts) {
+  //   return {
+  //     status: false,
+  //     message: "Account already exists!! Try Log in",
+  //     statusCode: 404,
+  //   };
+  // } else {
+  //   accounts[acno] = {
+  //     account_no: acno,
+  //     name: uname,
+  //     phone: phone,
+  //     balance: 0,
+  //     password: pswd,
+  //     transaction: [],
+  //   };
+  //   console.log(accounts);
+  //   return {
+  //     status: true,
+  //     message: "Registration completed!",
+  //     statusCode: 201,
+  //   };
+  // }
 };
 
 const login = (acno, pswd) => {
@@ -173,6 +177,3 @@ const getTransaction = (acc) => {
   }
 };
 module.exports = { register, login, deposit, withdraw, getTransaction };
-
-
-

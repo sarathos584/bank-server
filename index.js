@@ -29,11 +29,12 @@ app.post("/register", (req, res) => {
     req.body.phone,
     req.body.pswd
   );
-  if (result.status == true) {
-    res.status(result.statusCode).json(result);
-  } else {
-    res.status(result.statusCode).json(result);
-  }
+  // if (result.status == true) {
+  //   res.status(result.statusCode).json(result);
+  // } else {
+  //   res.status(result.statusCode).json(result);
+  // }
+  res.send('success')
 });
 
 //LOGIN API
